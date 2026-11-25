@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+:root {
+  --surface-canvas: #f7f5f0;
+  --surface-sand: #efece4;
+  --surface-card: #ffffff;
+  --ink-navy: #0f233d;
+  --ink-slate: #42546b;
+  --ink-muted: #5c6d82;
+  --accent-teal: #136b63;
+  --accent-teal-dark: #0e544e;
+  --accent-teal-soft: #e6f2f0;
+  --accent-warm: #b87a2b;
+  --accent-warm-soft: #fbf5eb;
+  --border-hairline: #e2ddd3;
+}
+
+@theme inline {
+  --color-background: var(--surface-canvas);
+  --color-foreground: var(--ink-navy);
+  --color-teal: var(--accent-teal);
+  --color-teal-soft: var(--accent-teal-soft);
+  --color-sand: var(--surface-sand);
+  --font-sans: var(--font-jakarta), var(--font-devanagari), system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--surface-canvas);
+  color: var(--ink-navy);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Crisp focus outline for keyboard navigation across all interactive controls */
+:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+}
+
+/* Subtle dot-grid background utility for diagram and location sections */
+.bg-showroom-grid {
+  background-image: radial-gradient(rgba(15, 35, 61, 0.085) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Clean horizontal scroll strip on small mobile viewports without visible scrollbar */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Pointer-aware radial spotlight glow for bento & catalog grid cards */
+.spotlight-surface {
+  position: relative;
+}
+
+.spotlight-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 280ms ease;
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(19, 107, 99, 0.09),
+    rgba(184, 122, 43, 0.03) 42%,
+    transparent 72%
+  );
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .spotlight-surface:hover::before {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-surface::before {
+    display: none;
+  }
+}
